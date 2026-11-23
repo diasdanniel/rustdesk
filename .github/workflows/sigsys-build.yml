@@ -4,6 +4,11 @@
 name: Acesso Remoto SigSys
 
 on:
+  # Enquanto as mudancas nao estao juntas na versao principal desta copia, cada envio para o
+  # rascunho tambem gera (o "Run workflow" so aparece para o que ja esta na principal).
+  push:
+    branches: ["claude/project-thread-axgpk9"]
+    paths-ignore: ["**.md"]
   workflow_dispatch:
     inputs:
       versao:
@@ -17,5 +22,5 @@ jobs:
     secrets: inherit
     with:
       upload-artifact: true
-      upload-tag: "sigsys-${{ inputs.versao }}"
+      upload-tag: "sigsys-${{ inputs.versao || '1.0.0' }}"
       publish-update-metadata: false
