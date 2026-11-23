@@ -99,7 +99,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.carriez.flutter_hbb"
+        // Acesso Remoto SigSys (23/11/2026): id proprio para conviver com o RustDesk oficial e ir para a Play Store.
+        applicationId "br.com.sigsys.acessoremoto"
         minSdkVersion 22
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()

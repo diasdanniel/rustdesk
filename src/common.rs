@@ -2515,7 +2515,29 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
     ThrottledInterval::new(i)
 }
 
+// Acesso Remoto SigSys (23/11/2026): esta copia ja nasce com o nome e a central da SigSys
+// (acesso.sigsys.com.br no servidor .9, so por WebSocket pelo tunel). Sem custom.txt assinado:
+// a configuracao vem embutida e e aplicada antes de qualquer outra.
+const SIGSYS_CLIENT: &str = r#"{
+    "app-name": "SigSysAcesso",
+    "override-settings": {
+        "custom-rendezvous-server": "acesso.sigsys.com.br",
+        "relay-server": "acesso.sigsys.com.br",
+        "api-server": "https://acesso.sigsys.com.br",
+        "key": "9sARoso55JCK9g0WT89jzyeUCrOcKP5u1DEq1rK6o04=",
+        "allow-websocket": "Y"
+    }
+}"#;
+
+pub fn load_sigsys_client() {
+    match serde_json::from_str::<std::collections::HashMap<String, serde_json::Value>>(SIGSYS_CLIENT) {
+        Ok(data) => apply_custom_client(data),
+        Err(e) => log::error!("Failed to parse SigSys client config: {e}"),
+    }
+}
+
 pub fn load_custom_client() {
+    load_sigsys_client();
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
@@ -2627,13 +2649,16 @@ pub fn read_custom_client(config: &str) {
         log::error!("Failed to dec custom client config");
         return;
     };
-    let Ok(mut data) =
+    let Ok(data) =
         serde_json::from_slice::<std::collections::HashMap<String, serde_json::Value>>(&data)
     else {
         log::error!("Failed to parse custom client config");
         return;
     };
+    apply_custom_client(data);
+}
 
+fn apply_custom_client(mut data: std::collections::HashMap<String, serde_json::Value>) {
     if let Some(app_name) = data.remove("app-name") {
         if let Some(app_name) = app_name.as_str() {
             *config::APP_NAME.write().unwrap() = app_name.to_owned();

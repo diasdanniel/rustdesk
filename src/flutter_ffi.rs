@@ -53,6 +53,7 @@ fn initialize(app_dir: &str, custom_client_config: &str) {
     if custom_client_config.is_empty() {
         crate::load_custom_client();
     } else {
+        crate::common::load_sigsys_client();
         crate::read_custom_client(custom_client_config);
     }
     #[cfg(target_os = "android")]
@@ -3095,6 +3096,8 @@ pub mod server_side {
         }
         #[cfg(not(debug_assertions))]
         crate::platform::android_log::initialize();
+        // Acesso Remoto SigSys: o servico do Android tambem nasce com a central da SigSys.
+        crate::common::load_sigsys_client();
         if let Ok(custom_client_config) = env.get_string(&custom_client_config) {
             if !custom_client_config.is_empty() {
                 let custom_client_config: String = custom_client_config.into();

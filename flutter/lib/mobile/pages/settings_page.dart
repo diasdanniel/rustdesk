@@ -1101,6 +1101,14 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
               onPressed: (context) =>
                   launchUrlString('https://rustdesk.com/privacy.html'),
               leading: Icon(Icons.privacy_tip),
+            ),
+            // Acesso Remoto SigSys (23/11/2026): credito e codigo-fonte pedidos pela licenca AGPL.
+            SettingsTile(
+              title: Text('Acesso Remoto SigSys'),
+              value: Text('Feito com o RustDesk (AGPL-3.0). Toque para ver o código-fonte.'),
+              onPressed: (context) =>
+                  launchUrlString('https://github.com/diasdanniel/rustdesk'),
+              leading: Icon(Icons.info_outline),
             )
           ],
         ),

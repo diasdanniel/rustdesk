@@ -2625,10 +2625,11 @@ class _AboutState extends State<_About> {
                   ).marginSymmetric(vertical: 4.0)),
               InkWell(
                   onTap: () {
-                    launchUrlString('https://rustdesk.com');
+                    // Acesso Remoto SigSys (23/11/2026): a licenca AGPL pede o codigo-fonte a vista.
+                    launchUrlString('https://github.com/diasdanniel/rustdesk');
                   },
                   child: Text(
-                    translate('Website'),
+                    'Código-fonte (AGPL-3.0)',
                     style: linkStyle,
                   ).marginSymmetric(vertical: 4.0)),
               Container(
@@ -2643,7 +2644,7 @@ class _AboutState extends State<_About> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Copyright © ${DateTime.now().toString().substring(0, 4)} Purslane Tech Pte. Ltd.\n$license',
+                            '© ${DateTime.now().toString().substring(0, 4)} SigSys Tecnologia em Sistemas - WhatsApp (91) 99363-5588\nFeito com o RustDesk, Copyright © Purslane Tech Pte. Ltd., licença AGPL-3.0\n$license',
                             style: const TextStyle(color: Colors.white),
                           ),
                           Text(

@@ -1,9 +1,7 @@
 name: Flutter Nightly Build
 
 on:
-  schedule:
-    # schedule build every night
-    - cron: "0 0 * * *"
+  # Acesso Remoto SigSys (23/11/2026): sem a montagem de toda noite nesta copia (gasta horas a toa).
   workflow_dispatch:
 
 jobs:

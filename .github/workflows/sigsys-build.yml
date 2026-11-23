@@ -1,0 +1,21 @@
+# Acesso Remoto SigSys (23/11/2026): gera o programa com a marca SigSys (Windows, Android e os demais
+# que o fluxo original monta) e publica na versao "sigsys-<versao>" das Releases desta copia.
+# Rodar a mao: Actions > "Acesso Remoto SigSys" > Run workflow.
+name: Acesso Remoto SigSys
+
+on:
+  workflow_dispatch:
+    inputs:
+      versao:
+        description: "Versao do Acesso Remoto SigSys (ex.: 1.0.0)"
+        required: true
+        default: "1.0.0"
+
+jobs:
+  gerar:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: "sigsys-${{ inputs.versao }}"
+      publish-update-metadata: false
